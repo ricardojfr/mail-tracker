@@ -45,8 +45,7 @@ CREATE TABLE unidad (
     id_entidad integer not null,
     nombre text not null,
     telefono varchar(8) null,
-    PRIMARY KEY (id_unidad),
-    FOREIGN KEY (id_entidad) REFERENCES entidad (id_entidad)
+    PRIMARY KEY (id_unidad)
 );
 
 -- TIPO DE DOCUMENTO: Los diferentes tipos de documentos que se recibiran (carta, memo, informe, etc.).
@@ -60,24 +59,23 @@ CREATE TABLE tipo_documento (
 -- CORRESPONDENCIA: Datos de la correspondecia (remitente, asunto, destinatario/s, tipo de correspondecia, etc.)
 CREATE TABLE correspondecia (
     id_correspondencia serial not null,
-    id_usuario integer not null,
     id_tipo_doc integer not null,
-    remitente integer not null,
     asunto text not null,
     interna boolean not null default false,
+    fecha timestamp not null,
     PRIMARY KEY (id_correspondencia),
-    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
-    FOREIGN KEY (id_tipo_doc) REFERENCES tipo_documento (id_tipo_doc),
-    FOREIGN KEY (remitente) REFERENCES persona (id_persona)
+    FOREIGN KEY (id_tipo_doc) REFERENCES tipo_documento (id_tipo_doc)
 );
 
--- DESTINATARIOS: Persona/s a quien esta dirigida la correspondecia
-CREATE TABLE destinatario (
-    id_destinatario serial not null,
+-- DESTINATARIOS: Persona/s en la correspondecia ya sea como remitente o destinatario/s
+CREATE TABLE persona_correspondencia (
+    id_persona_correspondencia serial not null,
     id_correspondencia integer not null,
     id_persona integer not null,
     id_entidad integer null,
     id_unidad integer null,
+    remitente boolean not null default true,
+    con_copia boolean not null default false,
     PRIMARY KEY (id_unidad),
     FOREIGN KEY (id_correspondencia) REFERENCES correspondecia (id_correspondencia),
     FOREIGN KEY (id_persona) REFERENCES persona (id_persona),
@@ -109,8 +107,23 @@ CREATE TABLE estado_correspondencia (
 -- OBSERVACIONES: Observaciones que se puedan hacer a la correspondecia en cada estado que tome
 CREATE TABLE observacion (
     id_observacion serial not null,
+    id_usuario integer not null,
     id_estado_correspondencia integer not null,
     contenido text not null,
     PRIMARY KEY (id_observacion),
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
     FOREIGN KEY (id_estado_correspondencia) REFERENCES estado_correspondencia (id_estado_correspondencia)
+);
+
+-- DOCUMENTO: Los archivos digitales de los documentos relacionados a la correspondecia, pueden ser mas de uno.
+CREATE TABLE documento (
+    id_documento serial not null,
+    id_usuario integer not null,
+    id_correspondencia integer not null,
+    nombre text not null,
+    doc_digital oid,
+    fecha_registro timestamp not null default localtimestamp(0),
+    PRIMARY KEY (id_documento),
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
+    FOREIGN KEY (id_correspondencia) REFERENCES correspondecia (id_correspondencia)
 );
