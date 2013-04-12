@@ -72,7 +72,7 @@ function cargar(pagina)
 {
     $("#principal").html('<div id="cargando"><div><img src="/img/indicator.gif" /></div><div>Cargando...</div></div>').show();
     
-    $('#msj').removeAttr("class").empty();
+    // $('#msj').removeAttr("class").empty();
     $('#principal').load(pagina, function(response, status, xhr) {
         if (status == "error") {
             var msg = "No se pudo cargar el contenido: ";
