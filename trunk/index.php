@@ -101,12 +101,12 @@
                         <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
                         <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">Principal</a></li>
-                            <li><a href="#about">Recibir</a></li>
+                            <li class="active"><a href="/">Principal</a></li>
+                            <li><a href="javascript: void(null);" onclick="cargar('recibir.php');">Recibir</a></li>
                             <li><a href="#contact">Actualizar</a></li>
                             <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administraci&oacute;n <b class="caret"></b></a>
+                            <a href="javascript: void(null);" class="dropdown-toggle" data-toggle="dropdown">Administraci&oacute;n <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -124,7 +124,7 @@
             </div> <!-- /.container -->
         </div><!-- /.navbar-wrapper -->
         
-        <div class="container">
+        <div class="container" id="principal">
             <h1>Sistema de Control de Correspondencia</h1>
             <p>Controle efectivamente la correspondencia que recibe y envia.</p>
             
@@ -136,5 +136,6 @@
         </div>
         <script src="/js/jquery-1.9.1.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/funcionesGenerales.js"></script>
     </body>
 </html>
