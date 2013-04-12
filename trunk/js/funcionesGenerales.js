@@ -70,7 +70,7 @@ function mostrarMsj(datos, pagina, origen)
 //funcion para cargar paginas desde el menu
 function cargar(pagina)
 {
-    $("#principal").html('<div id="cargando"><div><img src="/css/images/iconos/indicator.gif" /></div><div>Cargando...</div></div>').show();
+    $("#principal").html('<div id="cargando"><div><img src="/img/indicator.gif" /></div><div>Cargando...</div></div>').show();
     
     $('#msj').removeAttr("class").empty();
     $('#principal').load(pagina, function(response, status, xhr) {
